@@ -22,7 +22,7 @@ if(!defined('BASEPATH'))
 	BASEPATH	: Design Visual dari designer dan analysys
 */
 function base_url(){
-    return "http://localhost/DS-FSMRebuild/";
+    return "http://localhost/FinalDSF/";
 }
 class Formdatavideo {
     public function __CONSTRUCT(){

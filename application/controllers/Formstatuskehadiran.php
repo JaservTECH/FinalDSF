@@ -4,7 +4,7 @@ if(!defined('BASEPATH'))
 
 
 function base_url(){
-    return "http://localhost/DS-FSMRebuild/";
+    return "http://localhost/FinalDSF/";
 }
 class Tempsme extends CI_Controller{
     function __CONSTRUCT(){

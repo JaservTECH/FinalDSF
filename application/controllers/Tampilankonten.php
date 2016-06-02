@@ -26,7 +26,7 @@ if(!defined('BASEPATH'))
       public function tampil(){
             if(!function_exists('base_url')){
                 function base_url(){
-                    return "http://localhost/DS-FSM/";
+                    return "http://localhost/FinalDSF/";
                 }; 
             }
             if($this->session->has_userdata('login-admin'))
