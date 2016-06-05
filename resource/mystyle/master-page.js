@@ -4,6 +4,7 @@ var once2 = 2;
 var login = 1;
 var formLog = <?php if($status != null) echo '1'; else echo '2';?>;
 var barLoginOpen = 2;
+//feature login, pressing l and a sequently, and log off too
 $(document).ready(function(){
 	$(window).keypress(function(event){
 		if(event.keyCode == 108 || event.keyCode == 76){
@@ -26,6 +27,7 @@ $(document).ready(function(){
 			}
 		}	
 	});
+	//close login if not to log
 	$('#close-login').click(function(){
 		LoginBar.closeBar();
 	});
@@ -34,6 +36,7 @@ $(document).ready(function(){
 			once = 2;
 		}	
 	});
+	//tweek on size master page, there are 4 segment, and it must be responsivenes
 	if($("#layout_first").length>0)
 		$("#layout_first").height($(window).height());
 	$(".up-content").height($("#layout_first").height()*6/10);
@@ -45,6 +48,7 @@ $(document).ready(function(){
 	});
 	$('#content-acara').height(parseFloat($('#acara-layout').height())-parseFloat($('#watch-layout').height()));
 	reLoadListViewPeople();
+	//on resize main page
 	$(window).resize(function(){
 	    if($("#layout_first").length>0)
 			$("#layout_first").height($(window).height());
@@ -58,12 +62,14 @@ $(document).ready(function(){
 		$('#content-acara').height(parseFloat($('#acara-layout').height())-parseFloat($('#watch-layout').height()));
 		
 	});
+	//re size video if resize main layout
 	$('#video-show').resize(function(){
 		var h = parseFloat($('#layout-video').height())-parseFloat($('#video-show').height());
 		$('#video-show').css({
 			"marginTop" : (h/2)+"px"
 		});
 	});
+	//too like video case
 	$('.list-view-people').resize(function(){
 		reLoadListViewPeople();
 		
@@ -82,6 +88,7 @@ var temp1 = null;
 var temp3=null;
 var loop = 1;
 var loopJ = 0;
+//reload list view people to make it always new
 function reLoadListViewPeople(){
 	$('.list-view-people').height(parseFloat($('#list-dekan').height())/totalViewPeople);
 	if($('.bingkai-content-image').width() > $('.bingkai-content-image').height())
@@ -107,6 +114,7 @@ function reLoadListViewPeople(){
 	//alert($('.content-image').height());
 }
 var pauseTableAcara = true;
+//some sliding table drop down
 function reLoadTable(){
 	temp2 = document.getElementById('content-table-acara');
 	if(pauseTableAcara){
@@ -132,65 +140,6 @@ function reLoadTable(){
 		},5000);
 	});
 }
-/*
-function reLoadLDTable(){
-	var temps = document.getElementById('list-dekan');
-	for(var i = 0;;i++){
-		if(temps.childNodes[i].innerHTML != undefined){
-			var tempt = temps.childNodes[i];
-			break;
-		}
-	}
-	$(tempt).fadeOut(2000,function(){
-		var tempu = document.createElement('tr');
-		$(tempu).attr('class','list-item');
-		tempu.style.backgroundColor = '#888';
-		tempu.style.color = '#eee';
-		tempu.style.width = '100%';
-		tempu.innerHTML = tempt.innerHTML;
-		temps.removeChild(tempt);
-		temps.appendChild(tempu);
-		temps = null;
-		tempt = null;
-		tempu = null;
-		setTimeout(function(){
-			refLD();
-		},7000);
-	});
-}
-function refLD(){
-	reLoadLDTable();
-} 
-*/
-	/*
-	if(temp2.childNodes[loop].innerHTML == 'undefined')
-		loop++;
-	alert(loop+" = "+temp2.childNodes[loop].innerHTML)
-	temp = temp2.childNodes[loop];
-	loop+=loopJ;
-	loop++;
-	if(loopJ == 0 && loop > 4){
-		loop=0;
-		loopJ=1;
-	}
-	else if(loopJ ==1 && loop > 7){
-		loop=1;
-		loopJ=0;
-	}
-	$(temp).fadeOut('slow');
-	setTimeout(function(){
-		temp3 = document.createElement('tr');
-		temp3.innerHTML = temp.innerHTML; 
-		temp2.removeChild(temp);
-		temp2.appendChild(temp3);
-		temp = null;
-		temp2 = null;
-		temp3 = null;
-		setTimeout(hell(),10000);
-		
-	},1000);
-}
-*/
 function tryReRef(){
 	reLoadTable();
 }

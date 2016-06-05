@@ -16,17 +16,20 @@ $(document).ready(function(){
 });
 var editAcara = 0;
 var addAcara = 0;
+//create layput
 function startTableAcara(){
 	if($("#tanggal").length>0)$("#tanggal").datepicker({nextText:"",prevText:""});
 	if($("#jam").length>0)$("#jam").timepicker();
 	editAcara = 0;
 	addAcara = 0;
+	//usng ajax to get layout
 	j('#setAjax').setAjax({
         methode : "POST",
         url : base_url+"Formdataacara/tampilDataAcara",
         bool : true,
         content : "code=JASERVTECH-CODE",
         sucOk : function(a){
+			//1 if got and 0 if error or other code will reload again until got it
 			if(a[0] == "1"){
 				$("#content-place-acara").html(a.substr(1,a.length-1));
 				refreshTableAcara();
@@ -44,6 +47,7 @@ function startTableAcara(){
 						if($("#tanggal").length>0)$("#tanggal").datepicker({nextText:"",prevText:""});
 						if($("#jam").length>0)$("#jam").timepicker();
 					});
+					//event go form add acara new
 					$('#add-acara').click(function(){
 						editAcara = 0;
 						$('#submit-acara').css({
@@ -73,6 +77,7 @@ function startTableAcara(){
 						if($("#jam").length>0)$("#jam").timepicker();
 						
 					});
+					//execution submitting acara
 					$('#submit-acara').click(function(){
 						
 						//filter
@@ -115,6 +120,7 @@ function startTableAcara(){
 							}
 						});
 					});
+					//execution submit editing acara
 					$('#submit-edit-acara').click(function(){
 						//filter
 						$(this).attr("disabled","true");
@@ -162,11 +168,13 @@ function startTableAcara(){
 					});
 				},1000);
 			}else{
+				//reaload again
 				$("#content-place-acara").html(a.substr(1,a.length-1));
                     refreshTableAcara();
 			}
         },
         sucEr : function(a,b){
+			//getting error will reload again
 			if(parseInt(a) == 4 && parseInt(b) == 0)
 				startTableAcara();
 			if(parseInt(b) > 400)
@@ -175,6 +183,7 @@ function startTableAcara(){
         }
     });
 }
+//function dropping acara
 function dropEvent(id){
 	ModalAlert().onYes(function(){
 		////LoadingBar.openBar('Deleting event ...');
@@ -203,6 +212,7 @@ function dropEvent(id){
 }
 var idAcaraActive=0;
 var formAcaraActiveEdit = 0;
+//function control edit acara
 function editEvent(id,a){
 	formAcaraActiveEdit = 1;
 	a=a.parentNode;
@@ -223,6 +233,7 @@ function editEvent(id,a){
 	$('#add-acara-message').slideToggle('slow');
 	idAcaraActive = id;
 }
+//refreshing some content preview all acara
 function refreshTablePreviewAcara(){
 	////LoadingBar.openBar('sending data to server ...');
 	j('#setAjax').setAjax({
@@ -258,6 +269,7 @@ var temp1 = null;
 var temp3=null;
 var loop = 1;
 var loopJ = 0;
+//reoad table acara
 function reLoadTable(){
 	temp2 = document.getElementById('content-table-acara');
 	if(pauseTableAcara){
@@ -282,9 +294,11 @@ function reLoadTable(){
 		},5000);
 	});
 }
+//clock
 function tryReRef(){
 	reLoadTable();
 }
+//clock control
 function watchMe(){
     if(pauseJamAcara){
         return;

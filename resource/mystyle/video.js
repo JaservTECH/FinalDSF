@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+ //start contact view of video
 $(document).ready(function(){
     reloadVideo();
 });
-function reloadVideo(){
-    alert();
-    //document.getElementById('video-show').load();
-}
 var dropzone;
+//reload video content
 function reloadVideo(){
     ////LoadingBar.openBar("contact server ...");
-    
+    //contact aja server get layou with ajax
     j('#setAJax').setAjax({
         methode : "post",
         url : base_url+"Formdatavideo/tampilVideo",
@@ -21,12 +19,12 @@ function reloadVideo(){
         content : "",
         sucOk : function(a){
             $('#layout-video').html(a.substr(1,a.length-1));
+			//if index[0] == 1 will load to html layout kontent 
             if(a[0] == "1"){
                 $('#form-video-submit').submit(function(){
                     iframest = $('#frame-video').load(function(){
                         response = iframest.contents().find('body');
                         returnResponse = response.html();
-                        //alert(returnResponse);
                         iframest.unbind('load');
                         if(parseInt(returnResponse[0]) == 1){
                             reloadVideo();
@@ -42,15 +40,18 @@ function reloadVideo(){
                         }, 1);
                     }); 
                 });
+				//klick on drop zone will trigger click on input file
                 $('#dropzones').click(function(){
                     $('#file-video').trigger('click');
                 });
+				//event on change on input file video will run soome checking format, size and then upploading to server if good
                 $('#file-video').on('change',function(){
                     uploadVideo = true;
                     LoadingBar.openBar("upload video");
                     var kk = document.getElementById('file-video');
                     var TEMP_VIDEO = kk.files[0].name.substr(kk.files[0].name.length-4,4);
                     var err = 0;
+					//mp4 format
                     if(TEMP_VIDEO != ".mp4" ) {
                         err+=1;
                     }
@@ -65,6 +66,7 @@ function reloadVideo(){
                         },4000);
                     }else{
                         var TEMP_VIDEO_SIZE = kk.files[0].size/(1024*1024);
+						//size maksimum 500 mb
                         if(parseInt(TEMP_VIDEO_SIZE+"") > 500){
                             LoadingBar.setMessageBar("Ukuran maksimal 500 MB");
                             setTimeout(function(){
@@ -72,42 +74,39 @@ function reloadVideo(){
                                 LoadingBar.closeBar();
                             },4000);
                         }else{
+							// if true do submit on background
                             $('#form-video-submit').trigger('submit');
                         }
                     }
                 });
                 (function(){   
+				//feature dragable , there are drop over and leave statement.
                     var dropzone = document.getElementById('dropzones');
                     dropzone.ondragover = function(){
-                            //this.className = "dropzone dragover";
                             return false;
                     };
                     dropzone.ondragleave = function(){
-                            //this.className = "dropzone";
                             return false;
                     };
                     dropzone.ondrop = function(e){
-                            //this.className = "dropzone";
                             e.preventDefault();
-                            //alert('hello');
-                            //return console.log(e.dataTransfer.files[0].size/(1024*1024));
-                            
                             var jj = document.getElementById('file-video');
                             if(parseInt(e.dataTransfer.files.length) == 1)
                                 jj.files = e.dataTransfer.files;
                             else
                                 jj.files = e.dataTransfer.files[0];
-                            //upload(e.dataTransfer.files);
                     }
                }())
                 
                 
             }else{
+				//if not index, so reload again until got the main layout video
                 var temples = document.getElementById('video-show');
                 temples.onended = function(){
                     reloadVideo();
                 }
             }
+			// do some tricking to responsive size of video, and some resize event
             $("#content-video").height($('#layout-video').height());
             $('#ico-video').css({
                 "lineHeight":$('#layout-video').height()+"px"
@@ -131,6 +130,7 @@ function reloadVideo(){
             },2000);
         },
         sucEr : function(a,b){
+			//if error happent, reload will be do to get content
 			if(parseInt(a) == 4 && parseInt(b) == 0)
 				reloadVideo();
 			if(parseInt(b) > 400)

@@ -10,6 +10,7 @@ $(document).ready(function(){
 });
 var refreshing = 0;
 var totalViewPeople = 5;
+//reload dosen data base, mean dekanat status
 function reloadDosen(){
     j('#setAjax').setAjax({
         methode : 'post',
@@ -41,10 +42,7 @@ function reloadDosen(){
         }
     });
 }
-function refreshContentDosen(){
-    
-}
-
+//reaoad scheduler and some teek on responsiveness layout
 function reLoadListViewPeople(){
 	$('#list-dekan').height($('#list-dekan').height()-40);
 	$('.list-view-people').height(parseFloat($('#list-dekan').height())/totalViewPeople);

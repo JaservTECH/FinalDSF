@@ -1,3 +1,4 @@
+//event resize to responsiveness
 $(document).ready(function(){
 	if($("#layout_first").length>0)
 		$("#layout_first").height($(window).height());
@@ -10,6 +11,7 @@ $(document).ready(function(){
 	    $(".down-content").height($("#layout_first").height()*19/40);
 	});
 });
+//creating some alet model, for easy to called
 ModalAlert = function(){
 	
 	this.show = function(a){
@@ -44,6 +46,3 @@ ModalAlert = function(){
 	this.modalAlertYes = 0;
 	return this;
 };
-$(document).ready(function(){
-	
-});

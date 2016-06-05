@@ -1,3 +1,4 @@
+//loaing bar control
 var LoadingBar = {
     openBar : function(message){
          this.setMessageBar(message);
@@ -10,6 +11,7 @@ var LoadingBar = {
         $('#loading-bar').fadeOut('slow');
     }
 }
+//login bar control
 var LoginBar = {
     openBar : function(message){
         this.setMessageErrorBar(message);
@@ -25,6 +27,7 @@ var LoginBar = {
         j('#login').setInHtml(inHTML);
     }
 }
+//function declare template error on ajax
 function template(a,b,c){
     if(parseInt(b) == 200){
         console.log("server response status");
@@ -70,6 +73,7 @@ function template(a,b,c){
 //all code logic
 var login = 1;
 var barLoginOpen = 2;
+//pressing key  L and A with unicode control, login AND LOGOUT
 $(document).ready(function(){
 	$(window).keypress(function(event){
 		if(event.keyCode == 108 || event.keyCode == 76){
@@ -186,67 +190,3 @@ $(document).ready(function(){
 		}	
 	});
 });
-
-/*
-$(document).ready(function(){
-    refreshTableEvent();
-   $('#try-login').on('click',function(){
-       LoadingBar.openBar('Sending data to server');
-       j('#setAjax').setAjax({
-           methode : 'POST',
-           url : "Logincontroladmin/validasiAdmin",
-           bool : true,
-           content : "username="+$("#username").val()+"&password="+$("#password").val(),
-           sucOk : function(a){
-               LoadingBar.setMessageBar('processing Data ...');
-               setTimeout(function(){
-                   if(parseInt(a[0]) == 1){
-                        setTimeout(function(){
-                            LoadingBar.closeBar();
-                            formLog = 1;
-                        },2000);
-                    }else{
-                        setTimeout(function(){
-                            LoadingBar.closeBar();
-                            LoginBar.openBar(a.substr(1,a.length-1));
-                        },2000);
-                    }
-               },1000);
-           },
-           sucEr : function(a,b){
-               template(a,b," session login");
-           }
-       });
-   });
-});
-function refreshTableEvent(){
-    pauseTableAcara = true;
-    LoadingBar.openBar("connet server");
-    j('#setAjax').setAjax({
-        methode : 'POST',
-        url : 'Defaultpage/loadEvent/',
-        bool : true,
-        content : "code=DSF-JASERV",
-        sucEr : function (a,b){
-            template(a,b,"load table event");
-        },
-        sucOk : function(a){
-            if(parseInt(a[0]) == 1){
-                LoadingBar.setMessageBar('proses data');
-                j('#content-table-acara').setInHtml(a.substr(1,a.length-1));
-                LoadingBar.closeBar();
-            }else{
-                LoadingBar.setMessageBar('re try catching data');
-            }
-            pauseTableAcara = false;
-            reloadTableEvent();
-        }
-    });
-}
-function reloadTableEvent(){
-    reLoadTable();
-    setTimeout(function(){
-        refreshTableEvent();
-    },60000);
-}
-*/
